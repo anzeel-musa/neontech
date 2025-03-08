@@ -1,0 +1,128 @@
+{% include "commons/navbar.html" %}
+{% include "commons/send_message.html" %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+<style>
+  .messagecard{
+    display: inline-block;
+    width: 70%;
+    height: 120px;
+    margin: 20px;
+    border-radius: 10px;
+    padding: auto;
+    text-align: left;
+    border: 1px solid #72a5d8;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-wrap: break-word;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+
+
+  .sender{
+    font-weight: bold;
+    color: #72a5d8;
+    margin: -44px -30px -10px -30px;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-family: 'Poppins', sans-serif;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .delete{
+    float: right;
+    margin: -30px -30px -10px -30px;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-family: 'Poppins', sans-serif;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .delete a{
+    text-decoration: none;
+    color: #72a5d8;
+  }
+ 
+  .status{
+    float: right;
+    margin: -10px -20px -10px -10px;
+  }
+  @media (max-width: 768px) {
+   .messagecard{
+      width: 100%;
+    }
+  }
+
+  .form{
+    width: 350px
+  }
+</style>
+          
+<center style="height:400px;overflow:scroll">
+<h1>Conversation with {{ recipient.username }}</h1>
+{% for t in messages %}
+
+    <div class=" messagecard alert alert-success w-50 my-4 p-5" role="alert">
+      <div class="sender">
+        <p>{{ t.sender.username }}</p>
+      </div>
+         <span style="margin-top: -30px">{{ t.content }}</span>
+         <br>
+        <small class="float-endnn">{{ t.created_at }}</small>
+        <div class="delete">
+          {% if t.sender == request.user %}
+          <a href="{% url 'delete_message' t.id %}"><i class='bx bx-trash' ></i></a>
+          {% endif %}
+        </div>
+        
+
+          <div class="status">
+            {% if t.is_read %} <span class="text-success"><svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#0985d3"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>icon/24/icon-check</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="out" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <path d="M18,7 L16.59,5.59 L10.25,11.93 L11.66,13.34 L18,7 L18,7 L18,7 Z M22.24,5.59 L11.66,16.17 L7.48,12 L6.07,13.41 L11.66,19 L23.66,7 L22.24,5.59 L22.24,5.59 L22.24,5.59 Z M0.41,13.41 L6,19 L7.41,17.59 L1.83,12 L0.41,13.41 L0.41,13.41 L0.41,13.41 Z" id="path" fill="#0985d3" sketch:type="MSShapeGroup"> </path> </g> </g></svg></span>
+             {% else %} 
+             <span class="text-danger"><svg width="64px" height="64px" viewBox="-2 -2 24.00 24.00" xmlns="http://www.w3.org/2000/svg" fill="#808080" stroke="#808080"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.2"></g><g id="SVGRepo_iconCarrier"> <path d="M14.7232 6.23741C15.0707 6.57449 15.0942 7.14584 14.7756 7.51356L9.40976 13.7071C9.25243 13.8887 9.03181 13.9944 8.79903 13.9998C8.56625 14.0051 8.3415 13.9097 8.17686 13.7355L5.25003 10.6387C4.91666 10.2859 4.91666 9.71406 5.25003 9.36133C5.5834 9.00859 6.12391 9.00859 6.45729 9.36133L8.75367 11.791L13.5171 6.2929C13.8356 5.92518 14.3756 5.90034 14.7232 6.23741Z" fill="#808080"></path> </g></svg></span> {% endif %}
+          </div>
+        </div>
+
+      </div>
+
+{% endfor %}
+   
+</center>
+<center>
+
+    {% for message in messages %}  
+
+    <div class="alert alert-{{message.tags}}" role="alert"  id="message_container">
+      <h5>{{message}}</h5>
+    </div>
+    {% endfor %}
+   </center> 
+<center>
+    <div class="form">
+        <form method="POST" action="{% url 'send_message' user.username %}" autocomplete="off">
+            {% csrf_token %}   
+            <div class="modal-body">
+                <!-- ============= Block Id (Root) =============-->
+                <textarea class="form-control" name="content" rows="3" maxlength="500" placeholder="Message..." required></textarea>
+                
+                <div class="mt-4" style="width: 100%;">
+                  <button type="submit" class="btn btn-secondary mb-3 txt-sm">
+                      <i class='bx bx-send'></i>&nbsp;&nbsp; Send Message
+                  </button>
+                    </a>
+                </div>
+            </div>
+          </form>
+    </div>
+</center>
+
+
+

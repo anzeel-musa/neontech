@@ -1,0 +1,26 @@
+<!-- Modal -->
+<div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title txt-sm3" id="addModalLabel">
+            <i class='bx bxs-comment-add' ></i>&nbsp;&nbsp; Send Message
+          </h5>
+        </div>
+        <form method="POST" action="{% url 'send_message' user.username %}" autocomplete="off">
+          {% csrf_token %}   
+          <div class="modal-body">
+              <!-- ============= Block Id (Root) =============-->
+              <textarea class="form-control" name="content" rows="3" maxlength="500" placeholder="Message..." required></textarea>
+              
+              <div class="mt-4" style="width: 100%;">
+                <button type="submit" class="btn btn-secondary mb-3 txt-sm">
+                    <i class='bx bx-send'></i>&nbsp;&nbsp; Send Message
+                </button>
+                  </a>
+              </div>
+          </div>
+        </form>  
+      </div>
+    </div>
+  </div>
