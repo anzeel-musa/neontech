@@ -10,6 +10,6 @@ class MessageAdmin(admin.ModelAdmin):
     list_display = ('sender', 'recipient', 'content', 'timestamp', 'created_at')
     search_fields = ['sender', 'recipient']
     list_filter = ('timestamp',)
-    autocomplete_fields = ('sender', 'recipient')
+    #autocomplete_fields = ('sender', 'recipient')
     list_per_page = 10
 admin.site.register(Message, MessageAdmin)

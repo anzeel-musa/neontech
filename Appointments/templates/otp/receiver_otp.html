@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        / Inline CSS /
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+        }
+
+        .header {
+            background-color:#034c19;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer {
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>This Email is sent from Neon tech Solutions</h1>
+        </div>
+        <div class="content">
+            <p>Hello {{ instance.first_name }},</p>
+            <p>Thank you for signing up on our platform. </p>
+            <p> Please use this OTP to verify your email address: <strong>{{otp.otp_code}}</strong>. <br>
+                Use this url to redirect back to the website: http://127.0.0.1:8000/verify-email/{{instance.email}}</p>
+            <p> This OTP will expire in 5 minutes.</p>    
+            <img src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/back01.jpg" alt="Image 3" class="image">
+            <p>We are glad to have you with us.</p>
+            <p>Your Ultimate Support Team</p>
+        </div>
+        <div class="footer">
+            Copyright  &copy; {% now 'Y' %} Neon Inc. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

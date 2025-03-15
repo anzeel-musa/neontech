@@ -1,5 +1,10 @@
 <!-- Modal -->
-<div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<br>
+<br>
+<br>
+<br>
+
+<div class="modal fade mt-20" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -7,7 +12,7 @@
             <i class='bx bxs-comment-add' ></i>&nbsp;&nbsp; Send Message
           </h5>
         </div>
-        <form method="POST" action="{% url 'send_message' user.username %}" autocomplete="off">
+        <form method="POST" action="{% url 'send_message' user.email %}" autocomplete="off">
           {% csrf_token %}   
           <div class="modal-body">
               <!-- ============= Block Id (Root) =============-->
